@@ -1,8 +1,9 @@
-from util import get_training_set_from_file, get_sentences, get_labels
+from util import get_dataset_set_from_file, get_sentences, get_labels
 import numpy as np
 
+
 class MNBClassifier:
-    smooth_factor = 0.01
+    smooth_factor = 0.00001
 
     def __init__(self):
         self.label_probability = {"yes": 0, "no": 0}
@@ -39,16 +40,16 @@ class MNBClassifier:
         p_of_yes = self._get_score(sentence, "yes")
         p_of_no = self._get_score(sentence, "no")
         if p_of_yes > p_of_no:
-            return p_of_yes, "yes"
+            return "yes", p_of_yes
         else:
-            return p_of_no, "no"
+            return "no", p_of_no
 
     def _get_score(self, sentence, label):
         estimate = np.log10(self.label_probability[label])
 
-        for word in sentence.split():
+        for word in str.lower(sentence).split():
             probability_given_label = self._get_p_of_word_given_label(word, label)
-            next_probability = -MNBClassifier.smooth_factor if probability_given_label == 0 else np.log10(probability_given_label)
+            next_probability = np.log10(MNBClassifier.smooth_factor) if probability_given_label == 0 else np.log10(probability_given_label)
             estimate = estimate + next_probability
 
         return estimate
@@ -85,7 +86,7 @@ class MNBClassifier:
 
 
 def get_fit_classifier_from_file(file_name: str, is_filtered: bool) -> MNBClassifier:
-    training_set = get_training_set_from_file(file_name)
+    training_set = get_dataset_set_from_file(file_name)
     sentences = get_sentences(training_set)
     labels = get_labels(training_set)
 
