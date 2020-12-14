@@ -36,7 +36,7 @@ def get_trace_line(result, enthropy, row: np.ndarray):
     return f'{row[0]}  {result}  {enthropy}  {row[2]}  {"correct" if match else "wrong"}'
 
 
-def generate_files(training_file_name, test_file_name, is_filtered):
+def generate_output_files(training_file_name, test_file_name, is_filtered):
     classifier = get_fit_classifier_from_file(training_file_name, is_filtered)
 
     test_set = get_dataset_set_from_file(test_file_name)
@@ -47,8 +47,8 @@ def generate_files(training_file_name, test_file_name, is_filtered):
     labels_predicted = list()
     labels_true = list()
     for row in test_set:
-        result, enthropy = classifier.predict(row[1])
-        file.write(get_trace_line(result, enthropy, row))
+        result, entropy = classifier.predict(row[1])
+        file.write(get_trace_line(result, entropy, row))
         file.write('\n')
         labels_predicted.append(0 if result == "yes" else 1)
         labels_true.append(0 if row[2] == "yes" else 1)
