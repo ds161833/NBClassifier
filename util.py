@@ -57,10 +57,10 @@ def generate_files(training_file_name, test_file_name, is_filtered):
     file = open(f"output/eval_NB-BOW-{classifier_name}.txt", "w")
     statistics = Eval(labels_true, labels_predicted)
 
-    file.write(str(statistics.accuracy))
-    file.write(f'\n{statistics.precision["yes"]} {statistics.precision["no"]}')
-    file.write(f'\n{statistics.recall["yes"]} {statistics.recall["no"]}')
-    file.write(f'\n{statistics.f1_measure["yes"]} {statistics.f1_measure["no"]}')
+    file.write("{0:.4}".format(statistics.accuracy))
+    file.write(f'\n{"{0:.4}".format(statistics.precision["yes"])}  {"{0:.4}".format(statistics.precision["no"])}')
+    file.write(f'\n{"{0:.4}".format(statistics.recall["yes"])}  {"{0:.4}".format(statistics.recall["no"])}')
+    file.write(f'\n{"{0:.4}".format(statistics.f1_measure["yes"])}  {"{0:.4}".format(statistics.f1_measure["no"])}')
 
     file.close()
 
