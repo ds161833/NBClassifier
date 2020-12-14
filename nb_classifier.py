@@ -1,4 +1,3 @@
-from util import get_dataset_set_from_file, get_sentences, get_labels
 import numpy as np
 
 
@@ -83,14 +82,3 @@ class MNBClassifier:
                 opposite_count = self.words_probability_given_class["yes"].get(word, 0)
                 if opposite_count == 0:
                     self.words_probability_given_class["no"].pop(word)
-
-
-def get_fit_classifier_from_file(file_name: str, is_filtered: bool) -> MNBClassifier:
-    training_set = get_dataset_set_from_file(file_name)
-    sentences = get_sentences(training_set)
-    labels = get_labels(training_set)
-
-    classifier = MNBClassifier()
-    classifier.fit(sentences, labels, is_filtered)
-
-    return classifier
