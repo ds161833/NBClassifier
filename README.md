@@ -1,3 +1,5 @@
+https://github.com/ds161833/NBClassifier
+
 NBClassifier
 to run the code, you're gonna have to put you training data into covid_training_clean.tsv, make sure to follow the pattern that is in the existing file already, e.g. do not include any labels/columns names
 put your test data into the covid_test_pulbic.tsv, again by following the format of the existing, given file (or use the preset data)
